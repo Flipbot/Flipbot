@@ -1,0 +1,25 @@
+﻿{
+  "query": {
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            { "term": { "properties.Gem.Level": 19 } },
+            { "range": { "properties.Gem.Experience.PercentLeveled": { gte: 90 } } },
+            { "range": { "shop.chaosEquiv": { lte: 2 } } }
+          ],
+          "should": [
+            { "term": { "info.fullName": "Incinerate" } },
+            { "term": { "info.fullName": "Tornado Shot" } },
+            { "term": { "info.fullName": "Earthquake" } },
+            { "term": { "info.fullName": "Faster Casting" } },
+            { "term": { "info.fullName": "Faster Attacks" } }
+          ],
+          "minimum_number_should_match": 1
+        }
+      }
+    }
+  }
+},
+size:100
+}
