@@ -53,7 +53,7 @@ namespace Flipbot
             foreach (var i in items)
             {
                 string id = i.SelectToken("_id").Value<string>();
-                string msg = i.SelectToken("shop").SelectToken("defaultMessage").Value<string>();
+                string msg = i.SelectToken("_source").SelectToken("shop").SelectToken("defaultMessage").Value<string>();
                 Item item = new Item(id, msg);
                 Debug.WriteLine(item.ToString());
                 Debug.WriteLine("--------------------------------------");
