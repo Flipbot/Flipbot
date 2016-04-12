@@ -13,7 +13,8 @@ namespace Flipbot
 
         public Item(string id, string defaultMessage)
         {
-
+            this.id = id;
+            this.defaultMessage = defaultMessage;
         }
 
         public string ToString()
