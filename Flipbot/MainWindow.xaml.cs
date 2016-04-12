@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -33,7 +34,7 @@ namespace Flipbot
 
         public void test()
         {
-            string json = File.ReadAllText(@"~\..\..\..\Query\gem_almostlvl20.json");
+            string requestBody = File.ReadAllText(@"~\..\..\..\Query\gem_almostlvl20.json");
             string url = @"http://api.exiletools.com/index/_search?pretty";
             string result = @"";            
 
@@ -42,18 +43,16 @@ namespace Flipbot
                 client.Headers[HttpRequestHeader.Authorization] = "DEVELOPMENT-Indexer";
                 client.Headers[HttpRequestHeader.Accept] = "application/json";
                 client.Headers[HttpRequestHeader.ContentType] = "application/json";
-                result = client.UploadString(url, "POST", json);
+                result = client.UploadString(url, "POST", requestBody);
             }
+            
+            List<JToken> items = JObject.Parse(result).SelectToken("hits").Children().ElementAt(2).Values().ToList();
 
-            JObject o = JObject.Parse(result);
-
-            foreach (JToken p in o.SelectToken("hits").SelectTokens("hits"))
-            {                
-                Debug.WriteLine(p);
+            foreach (var i in items)
+            {
+                Debug.WriteLine(i);
                 Debug.WriteLine("--------------------------------------");
             }
-
-            // Debug.WriteLine(o.SelectToken("hits").SelectTokens("hits"));
         }
     }
 }
