@@ -48,9 +48,14 @@ namespace Flipbot
             
             List<JToken> items = JObject.Parse(result).SelectToken("hits").Children().ElementAt(2).Values().ToList();
 
+            List<Item> li = new List<Item>();
+
             foreach (var i in items)
             {
-                Debug.WriteLine(i);
+                string id = i.SelectToken("_id").Value<string>();
+                string msg = i.SelectToken("shop").SelectToken("defaultMessage").Value<string>();
+                Item item = new Item(id, msg);
+                Debug.WriteLine(item.ToString());
                 Debug.WriteLine("--------------------------------------");
             }
         }
