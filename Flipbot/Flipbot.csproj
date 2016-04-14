@@ -97,6 +97,7 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="Query\gem_almostlvl20.json" />
+    <None Include="Query\jewel_unique_rainofsplinters_perfect.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

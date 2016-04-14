@@ -3,10 +3,11 @@
     "filtered": {
       "filter": {
         "bool": {
-          "must": [
+          "must": [            
+            { "term": { "attributes.league": "Perandus" } },
             { "term": { "properties.Gem.Level": 19 } },
-            { "range": { "properties.Gem.Experience.PercentLeveled": { gte: 90 } } },
-            { "range": { "shop.chaosEquiv": { lte: 2 } } }
+            { "range": { "properties.Gem.Experience.PercentLeveled": { gte: 95 } } },
+            { "range": { "shop.chaosEquiv": { lte: 3 } } }
           ],
           "should": [
             { "term": { "info.fullName": "Incinerate" } },

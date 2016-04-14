@@ -9,6 +9,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -26,38 +27,56 @@ namespace Flipbot
     /// </summary>
     public partial class MainWindow : Window
     {
+        string url = @"http://api.exiletools.com/index/_search?pretty";
+        string directoryPath = @"~\..\..\..\Query\";
+        List<string> querys = new List<string>();
+        WebClient webClient;
+
         public MainWindow()
         {
             InitializeComponent();
-            test();
+
+            webClient = new WebClient();
+            webClient.Headers[HttpRequestHeader.Authorization] = "DEVELOPMENT-Indexer";
+            webClient.Headers[HttpRequestHeader.Accept] = "application/json";
+            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+
+            foreach (string queryPath in Directory.GetFiles(directoryPath))
+            {
+                querys.Add(File.ReadAllText(queryPath));
+            }
+
+            Timer aTimer = new Timer();
+            aTimer.Elapsed += new ElapsedEventHandler(time_elapsed);
+            aTimer.Interval = 1000 * 60 * 1;
+            aTimer.Enabled = true;
+
+            time_elapsed(null, null);
         }
 
-        public void test()
+        public void time_elapsed(object source, ElapsedEventArgs e)
         {
-            string requestBody = File.ReadAllText(@"~\..\..\..\Query\gem_almostlvl20.json");
-            string url = @"http://api.exiletools.com/index/_search?pretty";
-            string result = @"";            
+            Debug.WriteLine("=================Report Start================");
 
-            using (var client = new WebClient())
+            foreach (string requestBody in querys)
             {
-                client.Headers[HttpRequestHeader.Authorization] = "DEVELOPMENT-Indexer";
-                client.Headers[HttpRequestHeader.Accept] = "application/json";
-                client.Headers[HttpRequestHeader.ContentType] = "application/json";
-                result = client.UploadString(url, "POST", requestBody);
-            }
-            
-            List<JToken> items = JObject.Parse(result).SelectToken("hits").Children().ElementAt(2).Values().ToList();
+                string resultJson = webClient.UploadString(url, "POST", requestBody);
 
-            List<Item> li = new List<Item>();
-
-            foreach (var i in items)
-            {
-                string id = i.SelectToken("_id").Value<string>();
-                string msg = i.SelectToken("_source").SelectToken("shop").SelectToken("defaultMessage").Value<string>();
-                Item item = new Item(id, msg);
-                Debug.WriteLine(item.ToString());
-                Debug.WriteLine("--------------------------------------");
+                List<JToken> itemTokens = ExtractItemJtoken(resultJson);
+                foreach (var token in itemTokens)
+                {
+                    Item item = new Item(token);
+                    Debug.WriteLine(item.ToString());
+                    Debug.WriteLine("--------------------------------------");
+                }
             }
+
+            Debug.WriteLine("=================Report End=================");
+        }
+
+        public List<JToken> ExtractItemJtoken(string resultJSON)
+        {
+            return JObject.Parse(resultJSON).SelectToken("hits").Children().ElementAt(2).Values().ToList();
         }
     }
 }
