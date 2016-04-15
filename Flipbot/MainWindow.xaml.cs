@@ -28,23 +28,20 @@ namespace Flipbot
     public partial class MainWindow : Window
     {
         string url = @"http://api.exiletools.com/index/_search?pretty";
-        string directoryPath = @"~\..\..\..\Query\";
-        List<string> querys = new List<string>();
+        List<Query> querys = new List<Query>();
         WebClient webClient;
 
         public MainWindow()
         {
             InitializeComponent();
 
+            QueryBuilder qb = new QueryBuilder();
+            querys = qb.getQuerys();
+            
             webClient = new WebClient();
             webClient.Headers[HttpRequestHeader.Authorization] = "DEVELOPMENT-Indexer";
             webClient.Headers[HttpRequestHeader.Accept] = "application/json";
-            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-
-            foreach (string queryPath in Directory.GetFiles(directoryPath))
-            {
-                querys.Add(File.ReadAllText(queryPath));
-            }
+            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";           
 
             Timer aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(time_elapsed);
@@ -52,15 +49,16 @@ namespace Flipbot
             aTimer.Enabled = true;
 
             time_elapsed(null, null);
+            
         }
 
         public void time_elapsed(object source, ElapsedEventArgs e)
         {
             Debug.WriteLine("=================Report Start================");
 
-            foreach (string requestBody in querys)
+            foreach (Query query in querys)
             {
-                string resultJson = webClient.UploadString(url, "POST", requestBody);
+                string resultJson = webClient.UploadString(url, "POST", query.queryText);
 
                 List<JToken> itemTokens = ExtractItemJtoken(resultJson);
                 foreach (var token in itemTokens)

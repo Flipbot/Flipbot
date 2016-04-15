@@ -58,6 +58,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="Query.cs" />
+    <Compile Include="QueryBuilder.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -96,8 +98,9 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="QueryTemplates\unique.json" />
     <None Include="Query\gem_almostlvl20.json" />
-    <None Include="Query\jewel_unique_rainofsplinters_perfect.json" />
+    <None Include="Query\unique_rainofsplinters_perfect.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

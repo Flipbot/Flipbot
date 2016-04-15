@@ -1,0 +1,14 @@
+{
+  "query": {
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [
+            [MUST]
+          ]
+        }
+      }
+    }
+  }
+},
+size:100
