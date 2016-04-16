@@ -27,10 +27,10 @@ namespace Flipbot
     {
         string url = @"http://api.exiletools.com/index/_search?pretty";
         int sleepMsBetweenQuerys = 150;
-        int sleepMsBetweenScanRoutines = 250 * 60 * 1;
+        int sleepMsBetweenScanRoutines = 1000 * 10;
 
         List<Query> querys = new List<Query>();
-        List<Item> items = new List<Item>();
+        ItemList items = new ItemList();
 
         WebClient webClient = new WebClient();
         QueryBuilder queryBuilder = new QueryBuilder();
@@ -42,15 +42,15 @@ namespace Flipbot
 
             ExcecuteSetupSequence();
 
-            ExecuteScanRoutine(null, null);            
+            ExecuteScanRoutine(null, null);
         }
 
         private void ExcecuteSetupSequence()
         {
             SetupWebClient();
-            SetupTimer();
-            SetupItemGrid();
             SetupQuerys();
+            SetupItemGrid();
+            SetupTimer();
         }
 
         private void SetupTimer()
@@ -80,24 +80,23 @@ namespace Flipbot
 
         private void ExecuteScanRoutine(object source, ElapsedEventArgs e)
         {
+            List<Item> resultItems = new List<Item>();
             foreach (Query query in querys)
             {
                 string resultJson = webClient.UploadString(url, "POST", query.queryText);
 
-                List<Item> resultItems = resultParser.ParseResultJson(resultJson);
-
-                items.AddRange(resultItems);
+                resultItems.AddRange(resultParser.ParseResultJson(resultJson));
 
                 Thread.Sleep(sleepMsBetweenQuerys);
             }
-
+            items.SetItems(resultItems);
         }
 
         private void dg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = sender as DataGrid;
-            Item row = dataGrid.SelectedItem as Item;
-            Clipboard.SetText(row.league);
+            Item item = dataGrid.SelectedItem as Item;
+            Clipboard.SetText(item.defaultMessage);
         }
     }
 }

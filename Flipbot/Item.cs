@@ -15,10 +15,10 @@ namespace Flipbot
         public string fullName { get; set; }
         public string rarity { get; set; }
 
-        public string hoursSinceModified { get; set; }
+        public int hoursSinceModified { get; set; }
         public string defaultMessage { get; set; }
-        public double chaosEquiv { get; set; } = 69.23;
-        public string price { get; set; }
+        public double chaosEquiv { get; set; };
+        public double price { get; set; }
         public string priceCurrencyType { get; set; }
 
         public string QueryName { get; set; }
@@ -46,8 +46,14 @@ namespace Flipbot
         public Item()
         {
         }
-       
 
+        public bool Equals(Item item)
+        {
+            return uuid == item.uuid && 
+                hoursSinceModified == item.hoursSinceModified && 
+                chaosEquiv == item.chaosEquiv;
+        }
+       
         private SolidColorBrush SolidColorBrush_FromRGB(string hex)
         {
             return (SolidColorBrush)(new BrushConverter().ConvertFrom(hex));

@@ -58,6 +58,7 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Compile Include="ItemList.cs" />
     <Compile Include="Query.cs" />
     <Compile Include="ResultParser.cs" />
     <Compile Include="QueryBuilder.cs" />

@@ -60,7 +60,7 @@ namespace Flipbot
                     .SelectToken("shop")
                     .SelectToken("modified")
                     .Value<string>();
-            item.hoursSinceModified = (DateTime.Now - ConvertUnixTimeStamp(epochMili)).Hours.ToString();
+            item.hoursSinceModified = (DateTime.Now - ConvertUnixTimeStamp(epochMili)).Hours;
 
             item.league = itemJtoken
                 .SelectToken("_source")
