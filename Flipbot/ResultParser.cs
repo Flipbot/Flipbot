@@ -49,6 +49,12 @@ namespace Flipbot
                 .SelectToken("defaultMessage")
                 .Value<string>();
 
+            item.chaosEquiv = double.Parse(itemJtoken
+                .SelectToken("_source")
+                .SelectToken("shop")
+                .SelectToken("chaosEquiv")
+                .Value<string>());
+
             item.rarity = itemJtoken
                 .SelectToken("_source")
                 .SelectToken("attributes")

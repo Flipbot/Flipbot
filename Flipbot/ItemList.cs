@@ -14,6 +14,7 @@ namespace Flipbot
     {
         public void SetItems(List<Item> resultItems)
         {
+            // source: http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
             App.Current.Dispatcher.Invoke((Action)delegate
             {
                 this.Clear();
@@ -23,17 +24,6 @@ namespace Flipbot
                 }
 
             });
-            /*
-            foreach (Item i in resultItems)
-            {
-                // source: http://stackoverflow.com/questions/18331723/this-type-of-collectionview-does-not-support-changes-to-its-sourcecollection-fro
-                App.Current.Dispatcher.Invoke((Action)delegate
-                {
-                    items.Add(i);
-                });
-            }
-            */
-
         }
     }
 }
