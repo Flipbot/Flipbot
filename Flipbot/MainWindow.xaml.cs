@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -22,59 +23,81 @@ using System.Windows.Shapes;
 
 namespace Flipbot
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         string url = @"http://api.exiletools.com/index/_search?pretty";
+        int sleepMsBetweenQuerys = 150;
+        int sleepMsBetweenScanRoutines = 250 * 60 * 1;
+
         List<Query> querys = new List<Query>();
-        WebClient webClient;
+        List<Item> items = new List<Item>();
+
+        WebClient webClient = new WebClient();
+        QueryBuilder queryBuilder = new QueryBuilder();
+        ResultParser resultParser = new ResultParser();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            QueryBuilder qb = new QueryBuilder();
-            querys = qb.getQuerys();
-            
-            webClient = new WebClient();
-            webClient.Headers[HttpRequestHeader.Authorization] = "DEVELOPMENT-Indexer";
-            webClient.Headers[HttpRequestHeader.Accept] = "application/json";
-            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";           
+            ExcecuteSetupSequence();
 
-            Timer aTimer = new Timer();
-            aTimer.Elapsed += new ElapsedEventHandler(time_elapsed);
-            aTimer.Interval = 1000 * 60 * 1;
-            aTimer.Enabled = true;
-
-            time_elapsed(null, null);
-            
+            ExecuteScanRoutine(null, null);            
         }
 
-        public void time_elapsed(object source, ElapsedEventArgs e)
+        private void ExcecuteSetupSequence()
         {
-            Debug.WriteLine("=================Report Start================");
+            SetupWebClient();
+            SetupTimer();
+            SetupItemGrid();
+            SetupQuerys();
+        }
 
+        private void SetupTimer()
+        {
+            System.Timers.Timer aTimer = new System.Timers.Timer();
+            aTimer.Elapsed += new ElapsedEventHandler(ExecuteScanRoutine);
+            aTimer.Interval = sleepMsBetweenScanRoutines;
+            aTimer.Enabled = true;
+        }
+
+        private void SetupWebClient()
+        {
+            webClient.Headers[HttpRequestHeader.Authorization] = "DEVELOPMENT-Indexer";
+            webClient.Headers[HttpRequestHeader.Accept] = "application/json";
+            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
+        }
+
+        private void SetupItemGrid()
+        {
+            dg_ItemGrid.ItemsSource = items;
+        }
+
+        private void SetupQuerys()
+        {
+            querys = queryBuilder.getQuerys();
+        }
+
+        private void ExecuteScanRoutine(object source, ElapsedEventArgs e)
+        {
             foreach (Query query in querys)
             {
                 string resultJson = webClient.UploadString(url, "POST", query.queryText);
 
-                List<JToken> itemTokens = ExtractItemJtoken(resultJson);
-                foreach (var token in itemTokens)
-                {
-                    Item item = new Item(token);
-                    Debug.WriteLine(item.ToString());
-                    Debug.WriteLine("--------------------------------------");
-                }
+                List<Item> resultItems = resultParser.ParseResultJson(resultJson);
+
+                items.AddRange(resultItems);
+
+                Thread.Sleep(sleepMsBetweenQuerys);
             }
 
-            Debug.WriteLine("=================Report End=================");
         }
 
-        public List<JToken> ExtractItemJtoken(string resultJSON)
+        private void dg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            return JObject.Parse(resultJSON).SelectToken("hits").Children().ElementAt(2).Values().ToList();
+            DataGrid dataGrid = sender as DataGrid;
+            Item row = dataGrid.SelectedItem as Item;
+            Clipboard.SetText(row.league);
         }
     }
 }

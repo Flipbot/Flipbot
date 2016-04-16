@@ -4,64 +4,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace Flipbot
 {
     class Item
     {
-        public string uuid;
-        public string fullName;
-        public string defaultMessage;
-        public string rarity;
-        public string hoursSinceModified;
-        public string league;
-        
-        public Item(JToken itemJtoken)
+        public string uuid { get; set; }
+        public string league { get; set; }
+        public string fullName { get; set; }
+        public string rarity { get; set; }
+
+        public string hoursSinceModified { get; set; }
+        public string defaultMessage { get; set; }
+        public double chaosEquiv { get; set; } = 69.23;
+        public string price { get; set; }
+        public string priceCurrencyType { get; set; }
+
+        public string QueryName { get; set; }
+
+        public SolidColorBrush Color
         {
-            this.uuid = itemJtoken
-                .SelectToken("_id")
-                .Value<string>();
-
-            this.fullName = itemJtoken
-                .SelectToken("_source")
-                .SelectToken("info")
-                .SelectToken("fullName")
-                .Value<string>();
-
-            this.defaultMessage = itemJtoken
-                .SelectToken("_source")
-                .SelectToken("shop")
-                .SelectToken("defaultMessage")
-                .Value<string>();
-
-            this.rarity = itemJtoken
-                .SelectToken("_source")
-                .SelectToken("attributes")
-                .SelectToken("rarity")
-                .Value<string>();
-
-            string epochMili = itemJtoken
-                    .SelectToken("_source")
-                    .SelectToken("shop")
-                    .SelectToken("modified")
-                    .Value<string>();
-            this.hoursSinceModified = (DateTime.Now - ConvertUnixTimeStamp(epochMili)).Hours.ToString();
-
-            this.league = itemJtoken
-                .SelectToken("_source")
-                .SelectToken("attributes")
-                .SelectToken("league")
-                .Value<string>();
+            get
+            {
+                SolidColorBrush color;
+                switch (rarity)
+                {
+                    case "Normal": color = SolidColorBrush_FromRGB("#c8c8c8"); break;
+                    case "Magic": color = SolidColorBrush_FromRGB("#8888ff"); break;
+                    case "Rare": color = SolidColorBrush_FromRGB("#ffff77"); break;
+                    case "Unique": color = SolidColorBrush_FromRGB("#af6025"); break;
+                    case "Gem": color = SolidColorBrush_FromRGB("#1ba29b"); ; break;
+                    case "Currency": color = SolidColorBrush_FromRGB("#aa9e82"); break;
+                    case "Divination Card": color = SolidColorBrush_FromRGB("#aa9e82"); break;
+                    default: color = SolidColorBrush_FromRGB("#ffffff"); break;
+                }
+                return color;
+            }
         }
 
-        public string ToString()
+        public Item()
         {
-            return fullName + "\t" + hoursSinceModified + "\r\n\t" + defaultMessage;
         }
+       
 
-        public static DateTime ConvertUnixTimeStamp(string unixTimeStamp)
+        private SolidColorBrush SolidColorBrush_FromRGB(string hex)
         {
-            return new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(unixTimeStamp));
+            return (SolidColorBrush)(new BrushConverter().ConvertFrom(hex));
         }
     }
 }

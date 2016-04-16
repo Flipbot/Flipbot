@@ -1,12 +1,48 @@
-﻿<Window x:Class="Flipbot.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Flipbot"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+﻿<Window
+    x:Class="Flipbot.MainWindow"
+    Title="MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Flipbot"
+    Height="350"
+    Width="525"
+    mc:Ignorable="d">
+    <Grid Margin="10">
+        <DataGrid
+            Name="dg_ItemGrid"
+            AutoGenerateColumns="False"
+            ClipboardCopyMode="ExcludeHeader"
+            SelectionChanged="dg_SelectionChanged">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn
+                    Binding="{Binding fullName}"
+                    Header="Item">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter
+                                Property="TextBlock.Background"
+                                Value="{Binding Color}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn
+                    Binding="{Binding hoursSinceModified}"
+                    Header="Hours" />
+
+                <DataGridTextColumn
+                    Binding="{Binding hoursSinceModified}"
+                    Header="Price" />
+
+                <DataGridTextColumn
+                    Binding="{Binding chaosEquiv}"
+                    Header="Sell's for" />
+
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
