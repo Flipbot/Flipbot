@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -46,7 +47,7 @@ namespace Flipbot
                     string templateName = RemoveWhiteSpace(strReader.ReadLine().Replace("<<", "").Replace(">>", ""));
                     string tmp = RemoveWhiteSpace(strReader.ReadLine().Replace("<<", "").Replace(">>", ""));
 
-                    newQuery.priceChaos = Double.Parse(tmp.Split(':')[0]);
+                    newQuery.priceChaos = Double.Parse(tmp.Split(':')[0], CultureInfo.InvariantCulture);
                     newQuery.profitMarginChaos = Double.Parse(tmp.Split(':')[1]) - newQuery.priceChaos;
 
                     string queryDesc = strReader.ReadToEnd();
@@ -79,7 +80,7 @@ namespace Flipbot
             return Directory.GetFiles(directoryPath).ToList();
         }
 
-        public string RemoveWhiteSpace(string s)
+        static public string RemoveWhiteSpace(string s)
         {
             return Regex.Replace(s, @"\s+", "");
         }

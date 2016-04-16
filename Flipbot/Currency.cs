@@ -35,8 +35,8 @@ namespace Flipbot
 
         public static double ChaosEquivalence (string currencyType, double currencyAmount)
         {
-            double value;
-            CurrencyList.TryGetValue(currencyType.Trim(), out value);
+            double value = 0;
+            CurrencyList.TryGetValue(QueryBuilder.RemoveWhiteSpace(currencyType), out value);
             return currencyAmount * value;
         }
 
