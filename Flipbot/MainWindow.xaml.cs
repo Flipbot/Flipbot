@@ -87,7 +87,8 @@ namespace Flipbot
             {
                 string resultJson = webClient.UploadString(url, "POST", query.queryText);
 
-                resultItems.AddRange(resultParser.ParseResultJson(resultJson));
+
+                resultItems.AddRange(resultParser.ParseResultJson(resultJson, query));
 
                 Thread.Sleep(sleepMsBetweenQuerys);
             }

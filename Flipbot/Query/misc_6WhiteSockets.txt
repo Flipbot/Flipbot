@@ -1,0 +1,5 @@
+<<unique.json>>
+<<1:1>>
+{ "term": { "attributes.baseItemType": "Weapon" } },
+{ "range": { "sockets.totalWhite": { gte: 6 } } }
+

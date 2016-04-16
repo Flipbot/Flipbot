@@ -1,5 +1,0 @@
-<<unique.json>>
-	{ "term": { "attributes.equipType": "One Handed Melee Weapon" } },
-  { "range": { "sockets.totalWhite": { gte: 3 } } },
-  { "range": { "shop.chaosEquiv": { lte: 1 } } }
-

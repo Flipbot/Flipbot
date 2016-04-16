@@ -101,15 +101,15 @@
     </None>
     <AppDesigner Include="Properties\" />
     <None Include="QueryTemplates\unique.json" />
-    <None Include="Query\gem_almostlvl20.json" />
-    <None Include="Query\misc_Cheap6Link.json" />
-    <None Include="Query\misc_3WhiteSockets.json" />
-    <None Include="Query\misc_Cheap6Socket.json" />
-    <None Include="Query\unique_rainofsplinters_perfect.json" />
-    <None Include="Query\unique_TabulaRasa.json" />
-    <None Include="Query\misc_6WhiteSockets.json" />
-    <None Include="Query\unique_VictariosAcuity.json" />
-    <None Include="Query\unique_VictariosAcuity_NearPerfect.json" />
+    <Content Include="Query\gem_almostlvl20.txt" />
+    <Content Include="Query\misc_Cheap6Link.txt" />
+    <Content Include="Query\misc_3WhiteSockets.txt" />
+    <Content Include="Query\misc_Cheap6Socket.txt" />
+    <Content Include="Query\unique_rainofsplinters_perfect.txt" />
+    <Content Include="Query\unique_TabulaRasa.txt" />
+    <Content Include="Query\misc_6WhiteSockets.txt" />
+    <Content Include="Query\unique_VictariosAcuity.txt" />
+    <Content Include="Query\unique_VictariosAcuity_NearPerfect.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

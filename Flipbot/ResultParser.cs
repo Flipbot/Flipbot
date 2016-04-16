@@ -11,14 +11,14 @@ namespace Flipbot
 {
     class ResultParser
     {
-        public List<Item> ParseResultJson(string resultJson)
+        public List<Item> ParseResultJson(string resultJson, Query query)
         {
             List<Item> items = new List<Item>();
             List<JToken> itemTokens = ExtractItemJtoken(resultJson);
 
             foreach (JToken token in itemTokens)
             {                
-                items.Add(ParseJToken(token));
+                items.Add(ParseJToken(token, query));
             }
 
             return items;
@@ -30,10 +30,12 @@ namespace Flipbot
             return JObject.Parse(resultJSON).SelectToken("hits").Children().ElementAt(2).Values().ToList();
         }        
 
-        private Item ParseJToken(JToken itemJtoken)
+        private Item ParseJToken(JToken itemJtoken, Query query)
         {
             Item item = new Item();
 
+            item.queryName = query.queryName;
+            
             item.uuid = itemJtoken
                 .SelectToken("_id")
                 .Value<string>();
@@ -49,9 +51,6 @@ namespace Flipbot
                 .SelectToken("shop")
                 .SelectToken("defaultMessage")
                 .Value<string>();
-
-          // double.Parse("3.5", System.Globalization.NumberStyles.AllowDecimalPoint)
-
 
             item.chaosEquiv = double.Parse(itemJtoken
                 .SelectToken("_source")

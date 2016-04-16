@@ -1,0 +1,4 @@
+<<unique.json>>
+<<2:15>>
+{ "term": { "info.fullName": "Rain of Splinters Crimson Jewel" } },
+{ "range": { "mods.Jewel.explicit.#% reduced Totem Damage": { lte: 30 } } }

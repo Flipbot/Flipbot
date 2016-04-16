@@ -56,7 +56,22 @@
                     Width="300"
                     Binding="{Binding fullName}"
                     Header="Item">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter
+                                Property="TextBlock.Background"
+                                Value="{Binding BackgroundColor}" />
+                            <Setter
+                                Property="TextBlock.Foreground"
+                                Value="{Binding TextColor}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
 
+                <DataGridTextColumn
+                    Width="250"
+                    Binding="{Binding queryName}"
+                    Header="Filter">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter

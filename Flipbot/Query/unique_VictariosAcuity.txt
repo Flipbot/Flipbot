@@ -1,0 +1,5 @@
+<<unique.json>>
+<<30:50>>
+{ "term": { "info.fullName": "Victario's Acuity Turquoise Amulet" } },
+{ "term": { "attributes.corrupted": "false" } }
+

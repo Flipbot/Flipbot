@@ -1,0 +1,4 @@
+<<unique.json>>
+<<9:15>>
+{ "term": { "attributes.corrupted": "false" } },
+{ "term": { "info.fullName": "Tabula Rasa Simple Robe" } }
