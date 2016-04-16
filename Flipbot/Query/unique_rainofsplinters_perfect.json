@@ -1,5 +1,0 @@
-<<unique.json>>
-  { "term": { "info.fullName": "Rain of Splinters Crimson Jewel" } },
-  { "range": { "mods.Jewel.explicit.#% reduced Totem Damage": { lte: 30 } } },
-  { "range": { "shop.chaosEquiv": { lte: 2 } } }
-

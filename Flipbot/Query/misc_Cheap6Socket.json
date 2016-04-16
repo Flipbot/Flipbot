@@ -1,4 +1,0 @@
-<<unique.json>>
-  { "range": { "sockets.socketCount": { gte: 6 } } },
-  { "range": { "shop.chaosEquiv": { lte: 0.3 } } }
-

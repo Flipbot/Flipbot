@@ -1,0 +1,8 @@
+<<unique.json>>
+<<30:50>>
+{ "term": { "attributes.baseItemType": "Armour" } },
+{ "range": { "sockets.largestLinkGroup": { gte: 6 } } }
+],
+"must_not": [
+{ "term": { "info.fullName": "Tabula Rasa Simple Robe" } }
+

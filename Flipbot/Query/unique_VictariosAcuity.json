@@ -1,5 +1,0 @@
-<<unique.json>>
-	{ "term": { "info.fullName": "Victario's Acuity Turquoise Amulet" } },
-	{ "term": { "attributes.corrupted": "false" } },
-	{ "range": { "shop.chaosEquiv": { lte: 30 } } }
-

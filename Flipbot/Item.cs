@@ -17,13 +17,13 @@ namespace Flipbot
 
         public int hoursSinceModified { get; set; }
         public string defaultMessage { get; set; }
-        public double chaosEquiv { get; set; } = 69.23;
+        public double chaosEquiv { get; set; }
         public string currencyType { get; set; }
         public double currencyAmount { get; set; }
 
-        public string QueryName { get; set; }
-
-
+        public string queryName { get; set; }
+        public string profitMargin { get; set; }
+        
         public SolidColorBrush BackgroundColor
         {
             get

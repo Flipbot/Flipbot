@@ -11,5 +11,7 @@ namespace Flipbot
     {
         public string queryName;
         public string queryText;
+        public double profitMarginChaos;
+        public double priceChaos;
     }
 }
