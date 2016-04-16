@@ -17,7 +17,7 @@ namespace Flipbot
             List<JToken> itemTokens = ExtractItemJtoken(resultJson);
 
             foreach (JToken token in itemTokens)
-            {                
+            {
                 items.Add(ParseJToken(token, query));
             }
 
@@ -35,7 +35,7 @@ namespace Flipbot
             Item item = new Item();
 
             item.queryName = query.queryName;
-            
+
             item.uuid = itemJtoken
                 .SelectToken("_id")
                 .Value<string>();
@@ -52,12 +52,6 @@ namespace Flipbot
                 .SelectToken("defaultMessage")
                 .Value<string>();
 
-            //item.chaosEquiv = double.Parse(itemJtoken
-            //    .SelectToken("_source")
-            //    .SelectToken("shop")
-            //    .SelectToken("chaosEquiv")
-            //    .Value<string>(), CultureInfo.InvariantCulture);
-
             item.currencyType = itemJtoken
                 .SelectToken("_source")
                 .SelectToken("shop")
@@ -69,6 +63,8 @@ namespace Flipbot
                 .SelectToken("shop")
                 .SelectToken("amount")
                 .Value<string>(), CultureInfo.InvariantCulture);
+
+            item.chaosEquiv = Currency.ChaosEquivalence(item.currencyType, item.currencyAmount);
 
             item.rarity = itemJtoken
                 .SelectToken("_source")

@@ -8,7 +8,7 @@ namespace Flipbot
 {
     class Currency
     {
-        Dictionary<string, double> CurrencyList = new Dictionary<string, double>()
+            static Dictionary<string, double> CurrencyList = new Dictionary<string, double>()
             {
                 {"ScrollofWisdom", 0.006},
                 {"PortalScroll",0.006},
@@ -33,7 +33,7 @@ namespace Flipbot
                 {"EternalOrb",10000.000}
             };
 
-        public double ChaosEquivalence (string currencyType, double currencyAmount)
+        public static double ChaosEquivalence (string currencyType, double currencyAmount)
         {
             double value;
             CurrencyList.TryGetValue(currencyType.Trim(), out value);
