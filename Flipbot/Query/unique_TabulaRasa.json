@@ -1,0 +1,4 @@
+<<unique.json>>
+	{ "term": { "attributes.corrupted": "false" } },
+	{ "term": { "info.fullName": "Tabula Rasa Simple Robe" } },
+	{ "range": { "shop.chaosEquiv": { lte: 9 } } }

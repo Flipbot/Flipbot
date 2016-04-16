@@ -1,0 +1,7 @@
+<<unique.json>>
+	{ "term": { "info.fullName": "Victario's Acuity Turquoise Amulet" } },
+	{ "term": { "attributes.corrupted": "false" } },
+	{ "range": { "mods.Amulet.explicit.+#% to Lightning Resistance": { gte: 38 } } },
+	{ "range": { "mods.Amulet.explicit.+#% to Chaos Resistance": { gte: 8 } } },
+	{ "range": { "shop.chaosEquiv": { lte: 50 } } }
+

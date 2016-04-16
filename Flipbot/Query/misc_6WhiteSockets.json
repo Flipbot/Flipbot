@@ -1,0 +1,5 @@
+<<unique.json>>
+	{ "term": { "attributes.baseItemType": "Weapon" } },
+  { "range": { "sockets.totalWhite": { gte: 6 } } },
+  { "range": { "shop.chaosEquiv": { lte: 2 } } }
+

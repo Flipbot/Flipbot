@@ -5,6 +5,7 @@
         "bool": {
           "must": [
             { "term": { "attributes.league": "<<LEAGUE>>" } },
+			      { "term": { "shop.verified": "YES" } },
             <<MUST>>
           ]
         }
