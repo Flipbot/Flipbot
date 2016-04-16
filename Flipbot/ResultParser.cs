@@ -17,7 +17,7 @@ namespace Flipbot
             List<JToken> itemTokens = ExtractItemJtoken(resultJson);
 
             foreach (JToken token in itemTokens)
-            {                
+            {
                 items.Add(ParseJToken(token));
             }
 
@@ -28,7 +28,7 @@ namespace Flipbot
         private List<JToken> ExtractItemJtoken(string resultJSON)
         {
             return JObject.Parse(resultJSON).SelectToken("hits").Children().ElementAt(2).Values().ToList();
-        }        
+        }
 
         private Item ParseJToken(JToken itemJtoken)
         {
@@ -50,13 +50,22 @@ namespace Flipbot
                 .SelectToken("defaultMessage")
                 .Value<string>();
 
-          // double.Parse("3.5", System.Globalization.NumberStyles.AllowDecimalPoint)
+            //item.chaosEquiv = double.Parse(itemJtoken
+            //    .SelectToken("_source")
+            //    .SelectToken("shop")
+            //    .SelectToken("chaosEquiv")
+            //    .Value<string>(), CultureInfo.InvariantCulture);
 
-
-            item.chaosEquiv = double.Parse(itemJtoken
+            item.currencyType = itemJtoken
                 .SelectToken("_source")
                 .SelectToken("shop")
-                .SelectToken("chaosEquiv")
+                .SelectToken("currency")
+                .Value<string>();
+
+            item.currencyAmount = double.Parse(itemJtoken
+                .SelectToken("_source")
+                .SelectToken("shop")
+                .SelectToken("amount")
                 .Value<string>(), CultureInfo.InvariantCulture);
 
             item.rarity = itemJtoken
@@ -77,13 +86,20 @@ namespace Flipbot
                 .SelectToken("attributes")
                 .SelectToken("league")
                 .Value<string>();
-            
+
             return item;
         }
 
         private static DateTime ConvertUnixTimeStamp(string unixTimeStamp)
         {
             return new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(unixTimeStamp));
+        }
+
+
+        private double convertCurrency(string CurrencyType, string CurrencyAmount)
+        {
+
+            return 0;
         }
     }
 }

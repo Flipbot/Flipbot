@@ -19,7 +19,7 @@ namespace Flipbot
         public string defaultMessage { get; set; }
         public double chaosEquiv { get; set; } = 69.23;
         public string currencyType { get; set; }
-        public string currencyAmount { get; set; }
+        public double currencyAmount { get; set; }
 
         public string QueryName { get; set; }
 
