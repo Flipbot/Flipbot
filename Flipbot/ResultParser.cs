@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -49,11 +50,14 @@ namespace Flipbot
                 .SelectToken("defaultMessage")
                 .Value<string>();
 
+          // double.Parse("3.5", System.Globalization.NumberStyles.AllowDecimalPoint)
+
+
             item.chaosEquiv = double.Parse(itemJtoken
                 .SelectToken("_source")
                 .SelectToken("shop")
                 .SelectToken("chaosEquiv")
-                .Value<string>());
+                .Value<string>(), CultureInfo.InvariantCulture);
 
             item.rarity = itemJtoken
                 .SelectToken("_source")
