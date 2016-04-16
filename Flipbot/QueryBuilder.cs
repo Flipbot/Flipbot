@@ -44,7 +44,7 @@ namespace Flipbot
                 {
                     string templateName = strReader.ReadLine().Replace("<<", "").Replace(">>", "");
                     string queryDesc = strReader.ReadToEnd();
-                    newQuery.queryText = templates[templateName].Replace("[MUST]", queryDesc);
+                    newQuery.queryText = templates[templateName].Replace("<<MUST>>", queryDesc);
                 }
                 querys.Add(newQuery);
             }
@@ -54,7 +54,9 @@ namespace Flipbot
         {
             foreach (string filePath in GetPathOfAllFileInDirectory(templateDirectoryPath))
             {
-                templates.Add(Path.GetFileName(filePath), File.ReadAllText(filePath));
+                string templateText = File.ReadAllText(filePath);
+                templateText = templateText.Replace("<<LEAGUE>>", MainWindow.league);
+                templates.Add(Path.GetFileName(filePath), templateText);
             }
         }
 

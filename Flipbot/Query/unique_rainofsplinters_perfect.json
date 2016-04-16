@@ -1,5 +1,4 @@
 <<unique.json>>
-  { "term": { "attributes.league": "Perandus" } },
   { "term": { "info.fullName": "Rain of Splinters Crimson Jewel" } },
   { "range": { "mods.Jewel.explicit.#% reduced Totem Damage": { lte: 30 } } },
   { "range": { "shop.chaosEquiv": { lte: 2 } } }

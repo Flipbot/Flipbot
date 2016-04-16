@@ -25,9 +25,10 @@ namespace Flipbot
 {
     public partial class MainWindow : Window
     {
-        string url = @"http://api.exiletools.com/index/_search?pretty";
-        int sleepMsBetweenQuerys = 150;
-        int sleepMsBetweenScanRoutines = 1000 * 10;
+        public static string url = @"http://api.exiletools.com/index/_search?pretty";
+        public static string league = "Perandus";
+        public static int sleepMsBetweenQuerys = 150;
+        public static int sleepMsBetweenScanRoutines = 1000 * 10;
 
         List<Query> querys = new List<Query>();
         ItemList items = new ItemList();

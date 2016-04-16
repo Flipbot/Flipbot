@@ -4,7 +4,8 @@
       "filter": {
         "bool": {
           "must": [
-            [MUST]
+            { "term": { "attributes.league": "<<LEAGUE>>" } },
+            <<MUST>>
           ]
         }
       }
