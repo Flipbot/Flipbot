@@ -96,7 +96,8 @@ namespace Flipbot
         {
             DataGrid dataGrid = sender as DataGrid;
             Item item = dataGrid.SelectedItem as Item;
-            Clipboard.SetText(item.defaultMessage);
+            if(item != null)
+                Clipboard.SetText(item.defaultMessage);
         }
     }
 }
