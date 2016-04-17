@@ -9,9 +9,9 @@ namespace Flipbot
 {
     class Query
     {
-        public string queryName;
-        public string queryText;
-        public double profitMarginChaos;
-        public double priceChaos;
+        public string Name;
+        public string RawText;
+        public double PotentialProfitInChaos;
+        public double MaxPriceInChaos;
     }
 }

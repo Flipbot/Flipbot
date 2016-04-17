@@ -58,7 +58,8 @@
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Compile Include="Currency.cs" />
+    <Compile Include="CurrencyConverter.cs" />
+    <Compile Include="Util.cs" />
     <Compile Include="ItemList.cs" />
     <Compile Include="Query.cs" />
     <Compile Include="ResultParser.cs" />
@@ -101,6 +102,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="QueryTemplates\gem.json" />
     <None Include="QueryTemplates\unique.json" />
     <Content Include="Query\gem_almostlvl20.txt" />
     <Content Include="Query\misc_Cheap6Link.txt" />

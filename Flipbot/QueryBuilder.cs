@@ -11,12 +11,11 @@ namespace Flipbot
 {
     class QueryBuilder
     {
-        string queryDirectoryPath = @"~\..\..\..\Query\";
-        string templateDirectoryPath = @"~\..\..\..\QueryTemplates\";
-
-        Dictionary<string, string> templates = new Dictionary<string, string>();
-        Dictionary<string, string> queryDefinitions = new Dictionary<string, string>();
-        List<Query> querys = new List<Query>();
+        private string queryDirectoryPath = @"~\..\..\..\Query\";
+        private string templateDirectoryPath = @"~\..\..\..\QueryTemplates\";
+        private Dictionary<string, string> filterTemplates = new Dictionary<string, string>();
+        private Dictionary<string, string> filters = new Dictionary<string, string>();
+        private List<Query> querys = new List<Query>();
 
         public List<Query> getQuerys()
         {
@@ -32,26 +31,26 @@ namespace Flipbot
 
         public void BuildQuerys()
         {
-            foreach (KeyValuePair<string, string> kp in queryDefinitions)
+            foreach (KeyValuePair<string, string> kp in filters)
             {
                 StringReader strReader = new StringReader(kp.Value);
-                Query newQuery = new Query();                
-                newQuery.queryName = kp.Key.Split('.')[0];
-                
+                Query newQuery = new Query();
+                newQuery.Name = kp.Key.Split('.')[0];
+
                 if (!kp.Value.Contains("<<"))
                 {
-                    newQuery.queryText = strReader.ReadToEnd();
+                    newQuery.RawText = strReader.ReadToEnd();
                 }
                 else
                 {
-                    string templateName = RemoveWhiteSpace(strReader.ReadLine().Replace("<<", "").Replace(">>", ""));
-                    string tmp = RemoveWhiteSpace(strReader.ReadLine().Replace("<<", "").Replace(">>", ""));
+                    string templateName = Util.RemoveWhiteSpace(strReader.ReadLine().Replace("<<", "").Replace(">>", ""));
+                    string tmp = Util.RemoveWhiteSpace(strReader.ReadLine().Replace("<<", "").Replace(">>", ""));
 
-                    newQuery.priceChaos = Double.Parse(tmp.Split(':')[0], CultureInfo.InvariantCulture);
-                    newQuery.profitMarginChaos = Double.Parse(tmp.Split(':')[1]) - newQuery.priceChaos;
+                    newQuery.MaxPriceInChaos = Double.Parse(tmp.Split(':')[0], CultureInfo.InvariantCulture);
+                    //newQuery.PotentialProfitInChaos = Double.Parse(tmp.Split(':')[1]) - newQuery.MaxPriceInChaos;
 
                     string queryDesc = strReader.ReadToEnd();
-                    newQuery.queryText = templates[templateName].Replace("<<MUST>>", queryDesc);
+                    newQuery.RawText = filterTemplates[templateName].Replace("<<MUST>>", queryDesc);
                 }
                 querys.Add(newQuery);
             }
@@ -59,30 +58,20 @@ namespace Flipbot
 
         public void GetTemplates()
         {
-            foreach (string filePath in GetPathOfAllFileInDirectory(templateDirectoryPath))
+            foreach (string filePath in Util.GetPathOfAllFileInDirectory(templateDirectoryPath))
             {
                 string templateText = File.ReadAllText(filePath);
                 templateText = templateText.Replace("<<LEAGUE>>", MainWindow.league);
-                templates.Add(Path.GetFileName(filePath), templateText);
+                filterTemplates.Add(Path.GetFileName(filePath), templateText);
             }
         }
 
         public void GetQuerysDefinitions()
         {
-            foreach (string filePath in GetPathOfAllFileInDirectory(queryDirectoryPath))
+            foreach (string filePath in Util.GetPathOfAllFileInDirectory(queryDirectoryPath))
             {
-                queryDefinitions.Add(Path.GetFileName(filePath), File.ReadAllText(filePath));
+                filters.Add(Path.GetFileName(filePath), File.ReadAllText(filePath));
             }
-        }
-
-        public List<string> GetPathOfAllFileInDirectory(string directoryPath)
-        {
-            return Directory.GetFiles(directoryPath).ToList();
-        }
-
-        static public string RemoveWhiteSpace(string s)
-        {
-            return Regex.Replace(s, @"\s+", "");
         }
     }
 }

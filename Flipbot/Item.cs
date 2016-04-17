@@ -12,24 +12,24 @@ namespace Flipbot
     {
         public string uuid { get; set; }
         public string league { get; set; }
-        public string fullName { get; set; }
-        public string rarity { get; set; }
+        public string FullName { get; set; }
+        public string Rarity { get; set; }
 
-        public int hoursSinceModified { get; set; }
-        public string defaultMessage { get; set; }
-        public double chaosEquiv { get; set; }
+        public int HoursSinceModified { get; set; }
+        public string DefaultMessage { get; set; }
+        public double PriceInChaos { get; set; }
         public string currencyType { get; set; }
         public double currencyAmount { get; set; }
 
-        public string queryName { get; set; }
-        public string profitMargin { get; set; }
-        
+        public string QueryName { get; set; }
+        public double ProfitMarginInChaos { get; set; }
+
         public SolidColorBrush BackgroundColor
         {
             get
             {
                 SolidColorBrush color;
-                switch (rarity)
+                switch (Rarity)
                 {
                     case "Normal": color = SolidColorBrush_FromRGB("#c8c8c8"); break;
                     case "Magic": color = SolidColorBrush_FromRGB("#8888ff"); break;
@@ -49,7 +49,7 @@ namespace Flipbot
             get
             {
                 SolidColorBrush color;
-                switch (rarity)
+                switch (Rarity)
                 {
                     case "Normal": color = SolidColorBrush_FromRGB("#000000"); break;
                     case "Magic": color = SolidColorBrush_FromRGB("#ffffff"); break;
@@ -70,11 +70,11 @@ namespace Flipbot
 
         public bool Equals(Item item)
         {
-            return uuid == item.uuid && 
-                hoursSinceModified == item.hoursSinceModified && 
-                chaosEquiv == item.chaosEquiv;
+            return uuid == item.uuid &&
+                HoursSinceModified == item.HoursSinceModified &&
+                PriceInChaos == item.PriceInChaos;
         }
-       
+
         private SolidColorBrush SolidColorBrush_FromRGB(string hex)
         {
             return (SolidColorBrush)(new BrushConverter().ConvertFrom(hex));

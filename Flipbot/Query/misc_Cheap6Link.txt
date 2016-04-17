@@ -1,6 +1,7 @@
 <<unique.json>>
 <<30:50>>
 { "term": { "attributes.baseItemType": "Armour" } },
+{ "term": { "attributes.corrupted": "false" } },
 { "range": { "sockets.largestLinkGroup": { gte: 6 } } }
 ],
 "must_not": [

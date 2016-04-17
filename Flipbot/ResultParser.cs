@@ -18,7 +18,10 @@ namespace Flipbot
 
             foreach (JToken token in itemTokens)
             {
-                items.Add(ParseJToken(token, query));
+                Item newItem = ParseJToken(token, query);
+
+                if (newItem != null)
+                    items.Add(newItem);
             }
 
             return items;
@@ -34,24 +37,6 @@ namespace Flipbot
         {
             Item item = new Item();
 
-            item.queryName = query.queryName;
-
-            item.uuid = itemJtoken
-                .SelectToken("_id")
-                .Value<string>();
-
-            item.fullName = itemJtoken
-                .SelectToken("_source")
-                .SelectToken("info")
-                .SelectToken("fullName")
-                .Value<string>();
-
-            item.defaultMessage = itemJtoken
-                .SelectToken("_source")
-                .SelectToken("shop")
-                .SelectToken("defaultMessage")
-                .Value<string>();
-
             item.currencyType = itemJtoken
                 .SelectToken("_source")
                 .SelectToken("shop")
@@ -64,9 +49,32 @@ namespace Flipbot
                 .SelectToken("amount")
                 .Value<string>(), CultureInfo.InvariantCulture);
 
-            item.chaosEquiv = Currency.ChaosEquivalence(item.currencyType, item.currencyAmount);
+            item.PriceInChaos = CurrencyConverter.CovertToChaosValue(item.currencyType, item.currencyAmount);
 
-            item.rarity = itemJtoken
+            if (item.PriceInChaos > query.MaxPriceInChaos)
+               return null;
+
+            item.ProfitMarginInChaos = query.MaxPriceInChaos - item.PriceInChaos;
+
+            item.QueryName = query.Name;
+
+            item.uuid = itemJtoken
+                .SelectToken("_id")
+                .Value<string>();
+
+            item.FullName = itemJtoken
+                .SelectToken("_source")
+                .SelectToken("info")
+                .SelectToken("fullName")
+                .Value<string>();
+
+            item.DefaultMessage = itemJtoken
+                .SelectToken("_source")
+                .SelectToken("shop")
+                .SelectToken("defaultMessage")
+                .Value<string>();
+
+            item.Rarity = itemJtoken
                 .SelectToken("_source")
                 .SelectToken("attributes")
                 .SelectToken("rarity")
@@ -77,7 +85,7 @@ namespace Flipbot
                     .SelectToken("shop")
                     .SelectToken("modified")
                     .Value<string>();
-            item.hoursSinceModified = (DateTime.Now.ToUniversalTime() - ConvertUnixTimeStamp(epochMili)).Hours;
+            item.HoursSinceModified = (DateTime.Now.ToUniversalTime() - Util.ConvertUnixTimeStamp(epochMili)).Hours;
 
             item.league = itemJtoken
                 .SelectToken("_source")
@@ -88,16 +96,5 @@ namespace Flipbot
             return item;
         }
 
-        private static DateTime ConvertUnixTimeStamp(string unixTimeStamp)
-        {
-            return new DateTime(1970, 1, 1, 0, 0, 0).AddMilliseconds(Convert.ToDouble(unixTimeStamp));
-        }
-
-
-        private double convertCurrency(string CurrencyType, string CurrencyAmount)
-        {
-
-            return 0;
-        }
     }
 }

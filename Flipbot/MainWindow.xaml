@@ -6,8 +6,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:Flipbot"
-    Height="350"
-    Width="560"
+    Height="600"
+    Width="1000"
     FontFamily="Arial"
     FontSize="16"
     mc:Ignorable="d">
@@ -54,7 +54,7 @@
 
                 <DataGridTextColumn
                     Width="300"
-                    Binding="{Binding fullName}"
+                    Binding="{Binding FullName}"
                     Header="Item">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -70,7 +70,7 @@
 
                 <DataGridTextColumn
                     Width="250"
-                    Binding="{Binding queryName}"
+                    Binding="{Binding QueryName}"
                     Header="Filter">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -86,7 +86,7 @@
 
                 <DataGridTextColumn
                     Width="100"
-                    Binding="{Binding hoursSinceModified}"
+                    Binding="{Binding HoursSinceModified}"
                     Header="Hours">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
@@ -101,9 +101,25 @@
                 </DataGridTextColumn>
 
                 <DataGridTextColumn
+                    Width="100"
+                    Binding="{Binding PriceInChaos}"
+                    Header="Price">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter
+                                Property="TextBlock.Background"
+                                Value="{Binding BackgroundColor}" />
+                            <Setter
+                                Property="TextBlock.Foreground"
+                                Value="{Binding TextColor}" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn
                     Width="*"
-                    Binding="{Binding chaosEquiv}"
-                    Header="Chaos Equiv">
+                    Binding="{Binding ProfitMarginInChaos}"
+                    Header="Profit">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter

@@ -1,13 +1,8 @@
-﻿{
-  "query": {
-    "filtered": {
-      "filter": {
-        "bool": {
-          "must": [            
-            { "term": { "attributes.league": "Perandus" } },
-            { "term": { "properties.Gem.Level": 19 } },
-            { "range": { "properties.Gem.Experience.PercentLeveled": { gte: 95 } } },
-            { "range": { "shop.chaosEquiv": { lte: 7 } } }
+﻿<<gem.json>> 
+<<10:16>>
+		    { "term": { "properties.Gem.Level": 19 } },
+            { "range": { "properties.Gem.Experience.PercentLeveled": { gte: 90 } } },
+			{ "range": { "shop.chaosEquiv": { lte: 10 } } }
           ],
           "should": [
             { "term": { "info.fullName": "Incinerate" } },
@@ -74,12 +69,3 @@
             { "term": { "info.fullName": "Power Charge On Critical" } },
             { "term": { "info.fullName": "Spell Echo" } },
             { "term": { "info.fullName": "Faster Attacks" } }
-          ],
-          "minimum_number_should_match": 1
-        }
-      }
-    }
-  }
-},
-size:1000
-}

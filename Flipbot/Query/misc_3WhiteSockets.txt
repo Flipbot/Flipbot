@@ -1,4 +1,4 @@
 <<unique.json>>
-<<1:1>> 
+<<20:20>> 
 { "term": { "attributes.equipType": "One Handed Melee Weapon" } }, 
 { "range": { "sockets.totalWhite": { gte: 3 } } }

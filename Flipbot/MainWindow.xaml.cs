@@ -85,7 +85,7 @@ namespace Flipbot
             List<Item> resultItems = new List<Item>();
             foreach (Query query in querys)
             {
-                string resultJson = webClient.UploadString(url, "POST", query.queryText);
+                string resultJson = webClient.UploadString(url, "POST", query.RawText);
 
 
                 resultItems.AddRange(resultParser.ParseResultJson(resultJson, query));
@@ -100,7 +100,7 @@ namespace Flipbot
             DataGrid dataGrid = sender as DataGrid;
             Item item = dataGrid.SelectedItem as Item;
             if(item != null)
-                Clipboard.SetText(item.defaultMessage);
+                Clipboard.SetText(item.DefaultMessage);
         }
     }
 }
