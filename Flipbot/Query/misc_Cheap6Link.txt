@@ -1,9 +1,9 @@
-<<unique.json>>
-<<30:50>>
-{ "term": { "attributes.baseItemType": "Armour" } },
-{ "term": { "attributes.corrupted": "false" } },
-{ "range": { "sockets.largestLinkGroup": { gte: 6 } } }
-],
-"must_not": [
-{ "term": { "info.fullName": "Tabula Rasa Simple Robe" } }
-
+>>ITEM:6 link armor
+>>PRICE:50
+>>MUST
+	{ "term": { "attributes.baseItemType": "Armour" } },
+	{ "term": { "attributes.corrupted": "false" } },
+	{ "range": { "sockets.largestLinkGroup": { gte: 6 } } }
+>>MUSTNOT
+	{ "term": { "info.fullName": "Tabula Rasa Simple Robe" } }
+>>END

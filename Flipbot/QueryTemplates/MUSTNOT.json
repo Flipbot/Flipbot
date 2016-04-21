@@ -1,0 +1,19 @@
+{
+  "query": {
+    "filtered": {
+      "filter": {
+        "bool": {
+          "must": [            
+            { "term": { "attributes.league": "<<LEAGUE>>" } },
+            { "term": { "shop.verified": "YES" } },
+            { "term": { "shop.hasPrice": "true" } },
+            >>MUST
+          ],
+          "must_not": [
+            >>MUSTNOT
+          ]
+        }
+      }
+    }
+  }
+}, size:100000 }

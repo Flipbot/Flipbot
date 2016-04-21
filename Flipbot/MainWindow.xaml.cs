@@ -25,81 +25,35 @@ namespace Flipbot
 {
     public partial class MainWindow : Window
     {
-        public static string url = @"http://api.exiletools.com/index/_search?pretty";
-        public static string league = "Perandus";
-        public static int sleepMsBetweenQuerys = 150;
-        public static int sleepMsBetweenScanRoutines = 1000 * 60;
-
-        List<Query> querys = new List<Query>();
-        ItemList items = new ItemList();
-
-        WebClient webClient = new WebClient();
-        QueryBuilder queryBuilder = new QueryBuilder();
-        ResultParser resultParser = new ResultParser();
+        ItemList items;
+        Bot bot;
 
         public MainWindow()
         {
             InitializeComponent();
-            this.Title = this.Title += " - Scanning " + league + " League.";
 
-            ExcecuteSetupSequence();
+            Title = "Flipbot - Scanning " + Config.league + " League.";
 
-            ExecuteScanRoutine(null, null);
+            items = new ItemList();
+
+            SetupItemGrid(items);
+
+            bot = new Bot(items);
+
+            bot.Run();
         }
 
-        private void ExcecuteSetupSequence()
-        {
-            SetupWebClient();
-            SetupQuerys();
-            SetupItemGrid();
-            SetupTimer();
-        }
-
-        private void SetupTimer()
-        {
-            System.Timers.Timer aTimer = new System.Timers.Timer();
-            aTimer.Elapsed += new ElapsedEventHandler(ExecuteScanRoutine);
-            aTimer.Interval = sleepMsBetweenScanRoutines;
-            aTimer.Enabled = true;
-        }
-
-        private void SetupWebClient()
-        {
-            webClient.Headers[HttpRequestHeader.Authorization] = "DEVELOPMENT-Indexer";
-            webClient.Headers[HttpRequestHeader.Accept] = "application/json";
-            webClient.Headers[HttpRequestHeader.ContentType] = "application/json";
-        }
-
-        private void SetupItemGrid()
+        private void SetupItemGrid(ItemList items)
         {
             dg_ItemGrid.ItemsSource = items;
         }
 
-        private void SetupQuerys()
-        {
-            querys = queryBuilder.getQuerys();
-        }
-
-        private void ExecuteScanRoutine(object source, ElapsedEventArgs e)
-        {
-            List<Item> resultItems = new List<Item>();
-            foreach (Query query in querys)
-            {
-                string resultJson = webClient.UploadString(url, "POST", query.RawText);
-
-
-                resultItems.AddRange(resultParser.ParseResultJson(resultJson, query));
-
-                Thread.Sleep(sleepMsBetweenQuerys);
-            }
-            items.SetItems(resultItems);
-        }
-
+        //Puts the item selected default message in the clipboard
         private void dg_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DataGrid dataGrid = sender as DataGrid;
             Item item = dataGrid.SelectedItem as Item;
-            if(item != null)
+            if (item != null)               
                 Clipboard.SetText(item.DefaultMessage);
         }
     }

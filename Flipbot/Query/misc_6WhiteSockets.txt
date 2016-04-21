@@ -1,5 +1,6 @@
-<<unique.json>>
-<<40:40>>
-{ "term": { "attributes.baseItemType": "Weapon" } },
-{ "range": { "sockets.totalWhite": { gte: 6 } } }
-
+>>ITEM:6 white sockets
+>>PRICE:30
+>>MUST
+	{ "term": { "attributes.baseItemType": "Weapon" } },
+	{ "range": { "sockets.totalWhite": { gte: 6 } } }
+>>END

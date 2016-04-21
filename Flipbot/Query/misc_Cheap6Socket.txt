@@ -1,3 +1,0 @@
-<<unique.json>>
-<<0.3:1>>
-{ "range": { "sockets.socketCount": { gte: 6 } } }

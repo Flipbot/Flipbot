@@ -27,7 +27,6 @@ namespace Flipbot
             return items;
         }
 
-
         private List<JToken> ExtractItemJtoken(string resultJSON)
         {
             return JObject.Parse(resultJSON).SelectToken("hits").Children().ElementAt(2).Values().ToList();
@@ -36,6 +35,33 @@ namespace Flipbot
         private Item ParseJToken(JToken itemJtoken, Query query)
         {
             Item item = new Item();
+
+            item.RawResponseText = itemJtoken.ToString();
+
+            item.DateModified = Util.ConvertUnixTimeStamp(
+                    itemJtoken
+                    .SelectToken("_source")
+                    .SelectToken("shop")
+                    .SelectToken("modified")
+                    .Value<string>());
+
+            item.DateAdded = Util.ConvertUnixTimeStamp(
+                    itemJtoken
+                    .SelectToken("_source")
+                    .SelectToken("shop")
+                    .SelectToken("added")
+                    .Value<string>());
+
+            item.DateUpdated = Util.ConvertUnixTimeStamp(
+                    itemJtoken
+                    .SelectToken("_source")
+                    .SelectToken("shop")
+                    .SelectToken("updated")
+                    .Value<string>());
+
+            DateTime mostRecentDate = DateTime.Compare(item.DateUpdated, item.DateModified) <= 0 ? item.DateUpdated : item.DateModified;
+
+            item.HoursSinceModified = ((int)(DateTime.Now.ToUniversalTime() - mostRecentDate).TotalHours) - 1;
 
             item.currencyType = itemJtoken
                 .SelectToken("_source")
@@ -51,12 +77,12 @@ namespace Flipbot
 
             item.PriceInChaos = CurrencyConverter.CovertToChaosValue(item.currencyType, item.currencyAmount);
 
-            if (item.PriceInChaos > query.MaxPriceInChaos)
+            if (item.PriceInChaos > query.EstimatedMarketValueInChaos * (1.0 - Config.acceptableProfitMargin))
                return null;
 
-            item.ProfitMarginInChaos = query.MaxPriceInChaos - item.PriceInChaos;
+            item.ProfitMarginInChaos = query.EstimatedMarketValueInChaos - item.PriceInChaos;
 
-            item.QueryName = query.Name;
+            item.QueryName = query.QueryName;
 
             item.uuid = itemJtoken
                 .SelectToken("_id")
@@ -79,13 +105,6 @@ namespace Flipbot
                 .SelectToken("attributes")
                 .SelectToken("rarity")
                 .Value<string>();
-
-            string epochMili = itemJtoken
-                    .SelectToken("_source")
-                    .SelectToken("shop")
-                    .SelectToken("modified")
-                    .Value<string>();
-            item.HoursSinceModified = (DateTime.Now.ToUniversalTime() - Util.ConvertUnixTimeStamp(epochMili)).Hours;
 
             item.league = itemJtoken
                 .SelectToken("_source")

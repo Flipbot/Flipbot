@@ -16,6 +16,10 @@ namespace Flipbot
         public string Rarity { get; set; }
 
         public int HoursSinceModified { get; set; }
+        public DateTime DateModified { get; set; }
+        public DateTime DateUpdated { get; set; }
+        public DateTime DateAdded { get; set; }
+
         public string DefaultMessage { get; set; }
         public double PriceInChaos { get; set; }
         public string currencyType { get; set; }
@@ -23,6 +27,8 @@ namespace Flipbot
 
         public string QueryName { get; set; }
         public double ProfitMarginInChaos { get; set; }
+
+        public string RawResponseText { get; set; }
 
         public SolidColorBrush BackgroundColor
         {

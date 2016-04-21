@@ -7,11 +7,11 @@
             { "term": { "attributes.league": "<<LEAGUE>>" } },
             { "term": { "shop.verified": "YES" } },
 			      { "term": { "shop.hasPrice": "true" } },
-            <<MUST>>
+            >>MUST
           ]
         }
       }
     }
   }
 },
-size:1000
+size:100000

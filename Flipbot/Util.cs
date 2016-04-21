@@ -26,5 +26,11 @@ namespace Flipbot
         {
             return Directory.GetFiles(directoryPath).ToList();
         }
+
+        public IEnumerable<string> GetPathOfAllFileInDirectory(object templateDirectoryPath)
+        {
+            throw new NotImplementedException();
+        }
+        
     }
 }

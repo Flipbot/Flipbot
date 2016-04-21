@@ -1,4 +1,6 @@
-<<unique.json>>
-<<20:20>> 
-{ "term": { "attributes.equipType": "One Handed Melee Weapon" } }, 
-{ "range": { "sockets.totalWhite": { gte: 3 } } }
+>>ITEM:3 white sockets
+>>PRICE:20 
+>>MUST
+	{ "term": { "attributes.equipType": "One Handed Melee Weapon" } }, 
+	{ "range": { "sockets.totalWhite": { gte: 3 } } }
+>>END
