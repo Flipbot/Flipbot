@@ -1,6 +1,7 @@
 >>ITEM:6 white sockets
->>PRICE:30
+>>PRICE:20
 >>MUST
 	{ "term": { "attributes.baseItemType": "Weapon" } },
 	{ "range": { "sockets.totalWhite": { gte: 6 } } }
+
 >>END

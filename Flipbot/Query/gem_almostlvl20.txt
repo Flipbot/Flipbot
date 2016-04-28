@@ -66,4 +66,5 @@
 	{ "term": { "info.fullName": "Power Charge On Critical" } },
 	{ "term": { "info.fullName": "Spell Echo" } },
 	{ "term": { "info.fullName": "Faster Attacks" } }
+
 >>END

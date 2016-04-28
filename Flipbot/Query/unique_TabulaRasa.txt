@@ -1,6 +1,0 @@
->>ITEM:Tabula Rasa Simple Robe
->>PRICE:16
->>MUST
-	{ "term": { "attributes.corrupted": "false" } },
-	{ "term": { "info.fullName": "Tabula Rasa Simple Robe" } }
->>END

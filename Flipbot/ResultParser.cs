@@ -77,7 +77,7 @@ namespace Flipbot
 
             item.PriceInChaos = CurrencyConverter.CovertToChaosValue(item.currencyType, item.currencyAmount);
 
-            if (item.PriceInChaos > query.EstimatedMarketValueInChaos * (1.0 - Config.acceptableProfitMargin))
+            if (item.PriceInChaos > query.EstimatedMarketValueInChaos * (1.0 - Config.acceptableProfitMargin) || query.EstimatedMarketValueInChaos - item.PriceInChaos <= Config.minimumProfitChaos)
                return null;
 
             item.ProfitMarginInChaos = query.EstimatedMarketValueInChaos - item.PriceInChaos;

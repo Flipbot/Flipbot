@@ -90,7 +90,8 @@ namespace Flipbot
                     {
                         filterScanState = FilterScanState.AddingToShould;
                     }
-                    else if (line.Contains(">>END") || Util.RemoveWhiteSpace(line) == "")
+                    //else if (line.Contains(">>END") || Util.RemoveWhiteSpace(line) == "")
+                    else if (Util.RemoveWhiteSpace(line) == "")
                     {
                         string temp = filterTemplates[templateToUse];
 

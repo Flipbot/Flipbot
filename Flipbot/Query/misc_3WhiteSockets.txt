@@ -1,6 +1,7 @@
 >>ITEM:3 white sockets
->>PRICE:20 
+>>PRICE:10 
 >>MUST
 	{ "term": { "attributes.equipType": "One Handed Melee Weapon" } }, 
 	{ "range": { "sockets.totalWhite": { gte: 3 } } }
+
 >>END

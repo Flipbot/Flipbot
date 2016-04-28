@@ -6,4 +6,5 @@
 	{ "range": { "sockets.largestLinkGroup": { gte: 6 } } }
 >>MUSTNOT
 	{ "term": { "info.fullName": "Tabula Rasa Simple Robe" } }
+
 >>END

@@ -95,6 +95,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Resource Include="Query\unique.txt" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -111,9 +112,7 @@
     <Content Include="Query\gem_almostlvl20.txt" />
     <Content Include="Query\misc_Cheap6Link.txt" />
     <Content Include="Query\misc_3WhiteSockets.txt" />
-    <Content Include="Query\unique_TabulaRasa.txt" />
     <Content Include="Query\misc_6WhiteSockets.txt" />
-    <Content Include="Query\unique_VictariosAcuity.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

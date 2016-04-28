@@ -6,7 +6,7 @@
           "must": [
             { "term": { "attributes.league": "<<LEAGUE>>" } },
             { "term": { "shop.verified": "YES" } },
-			      { "term": { "shop.hasPrice": "true" } },
+			{ "term": { "shop.hasPrice": "true" } },
             >>MUST
           ]
         }

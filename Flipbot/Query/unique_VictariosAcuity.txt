@@ -1,6 +1,0 @@
->>ITEM:Victarios Acuity
->>PRICE:50
->>MUST
-	{ "term": { "info.fullName": "Victario's Acuity Turquoise Amulet" } },
-	{ "term": { "attributes.corrupted": "false" } }
->>END
