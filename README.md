@@ -1,6 +1,4 @@
-<snippet>
-  <content><![CDATA[
-# ${1:Flipbot}
+# Flipbot
 A simple Path of Exile item market scanner. It finds items with low prices and displays them on a simple user interface.
 
 ## Usage
@@ -14,7 +12,3 @@ A simple Path of Exile item market scanner. It finds items with low prices and d
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request
-
-]]></content>
-  <tabTrigger>readme</tabTrigger>
-</snippet>
